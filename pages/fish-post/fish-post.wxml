@@ -1,0 +1,39 @@
+<!-- pages/fish-post/fish-post.wxml — 发布摸鱼动态 -->
+<view class="publish-page">
+
+  <!-- 文字输入 -->
+  <view class="text-section glass-card">
+    <textarea class="text-area" 
+              placeholder="今天摸到了什么鱼？🐟 分享你的心情..."
+              placeholder-style="color:#B0C8C4;font-size:30rpx;"
+              value="{{text}}"
+              maxlength="{{maxTextLength}}"
+              bindinput="onTextInput"
+              auto-height />
+    <view class="text-count text-hint">{{text.length}}/{{maxTextLength}}</view>
+  </view>
+
+  <!-- 图片区域 -->
+  <view class="image-section glass-card">
+    <view class="image-grid">
+      <view class="img-item" wx:for="{{images}}" wx:key="*this" wx:for-item="img">
+        <image class="img-thumb" src="{{img.path}}" mode="aspectFill" 
+               data-url="{{img.path}}" bindtap="onPreviewImage" />
+        <view class="img-delete" data-index="{{index}}" bindtap="onDeleteImage">✕</view>
+      </view>
+      <!-- 添加按钮 -->
+      <view class="img-item img-add" wx:if="{{images.length < maxImages}}" bindtap="onChooseImage">
+        <text class="add-icon">+</text>
+      </view>
+    </view>
+    <view class="image-hint text-hint" wx:if="{{images.length === 0}}">添加图片（最多9张）</view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="submit-section">
+    <button class="btn btn-block publish-btn" bindtap="onSubmit" loading="{{submitting}}" disabled="{{submitting}}">
+      🐟 发布摸鱼
+    </button>
+  </view>
+
+</view>

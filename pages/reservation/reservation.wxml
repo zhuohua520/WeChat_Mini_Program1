@@ -1,0 +1,100 @@
+<!-- pages/reservation/reservation.wxml — 预约记录 -->
+<view class="page-container">
+
+  <view class="slots-bar glass-card animate-fade-in" bindtap="onShowSlotsDetail">
+    <view class="slots-bar-left">
+      <text class="slots-dot"></text>
+      <text class="slots-text">📌 预约中</text>
+    </view>
+    <view class="slots-bar-right">
+      <text class="slots-count">{{bookedDeskCount}} 工位 · {{activeBookedSlots.length}} 时段</text>
+      <text class="slots-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="tab-bar glass-card">
+    <view class="tab-item {{activeTab === tab ? 'tab-active' : ''}}" 
+          wx:for="{{tabs}}" wx:key="*this" wx:for-item="tab"
+          data-tab="{{tab}}" bindtap="onTabChange">
+      <text>{{tab === '进行中' ? '🔄' : tab === '待开始' ? '📋' : '✅'}} {{tab}}</text>
+      <view class="tab-indicator" wx:if="{{activeTab === tab}}"></view>
+    </view>
+  </view>
+
+  <block wx:if="{{filteredList.length > 0}}">
+    <view class="reservation-list animate-slide-up">
+      <view class="reservation-card glass-card" wx:for="{{filteredList}}" wx:key="id" wx:for-item="record">
+        <view class="card-status-bar {{record.status === '进行中' ? 'bar-inuse' : record.status === '待开始' ? 'bar-reserved' : 'bar-free'}}"></view>
+        <view class="card-body">
+          <view class="card-header flex-between">
+            <view><text class="card-desk">🪑 {{record.deskName}}</text></view>
+            <view class="tag {{record.status === '进行中' ? 'tag-warning' : record.status === '待开始' ? 'tag-primary' : 'tag-ghost'}}">
+              {{record.status}}
+            </view>
+          </view>
+          <view class="card-detail">
+            <view class="detail-row">
+              <text class="text-hint">👤 预约人</text>
+              <text class="text-body">{{record.userName || '未知'}}</text>
+            </view>
+            <view class="detail-row">
+              <text class="text-hint">📅 日期</text>
+              <text class="text-body">{{record.date}}</text>
+            </view>
+            <view class="detail-row">
+              <text class="text-hint">⏰ 时段</text>
+              <text class="text-body">{{record.startTime}} - {{record.endTime}}</text>
+            </view>
+            <view class="detail-row">
+              <text class="text-hint">🕐 预约时间</text>
+              <text class="text-secondary">{{record.createTime}}</text>
+            </view>
+          </view>
+          <view class="card-actions" wx:if="{{record.status !== '已结束'}}">
+            <button class="btn btn-danger btn-sm" data-id="{{record.id}}" bindtap="onCancelReservation">
+              ❌ 取消预约
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="empty-state">
+      <view class="empty-icon">📭</view>
+      <view class="empty-text">暂无{{activeTab}}的预约</view>
+    </view>
+  </block>
+
+  <view class="slots-overlay {{showSlotsModal ? 'overlay-show' : ''}}" bindtap="onCloseSlotsModal">
+    <view class="slots-modal glass-card" catchtap="noop">
+      <view class="slots-modal-header flex-between">
+        <text class="text-subtitle">📋 当前已预约时段</text>
+        <view class="close-btn" bindtap="onCloseSlotsModal">✕</view>
+      </view>
+      <block wx:if="{{activeBookedSlots.length > 0}}">
+        <view class="slots-list">
+          <view class="slot-item" wx:for="{{activeBookedSlots}}" wx:key="id">
+            <view class="slot-header flex-between">
+              <text class="slot-desk">🪑 {{item.deskName}}</text>
+              <view class="tag {{item.status === '进行中' ? 'tag-warning' : 'tag-primary'}}">{{item.status}}</view>
+            </view>
+            <view class="slot-detail">
+              <view class="detail-row" style="margin-bottom:6rpx;">
+                <text class="text-hint" style="font-size:22rpx;">👤 {{item.userName || '未知'}}</text>
+                <text class="text-body">📅 {{item.date}} ⏰ {{item.startTime}}-{{item.endTime}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="empty-state" style="padding:60rpx 0;">
+          <view class="empty-text">暂无预约时段</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</view>

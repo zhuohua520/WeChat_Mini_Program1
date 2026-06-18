@@ -1,0 +1,93 @@
+<!-- pages/checkin/checkin.wxml — 打卡页 -->
+<view class="page-container">
+
+  <!-- ===== 顶部状态卡片 ===== -->
+  <view class="status-card glass-card animate-fade-in">
+    <text class="deco-stamp">🏷️</text>
+    
+    <!-- 进行中状态 -->
+    <block wx:if="{{activeRecord}}">
+      <view class="status-label">✨ 打卡进行中</view>
+      <breathing-light />
+      <view class="status-time">🕐 {{activeRecord.startTime}}</view>
+      <view class="status-location text-hint">
+        📍 {{activeRecord.location.address}}
+      </view>
+      <view class="checkout-btn-wrapper">
+        <button class="btn btn-warning btn-block checkout-btn" 
+                bindtap="onCheckout" loading="{{isCheckingOut}}" disabled="{{isCheckingOut}}">
+          🏃 签 退
+        </button>
+      </view>
+    </block>
+
+    <!-- 空闲状态 -->
+    <block wx:else>
+      <view class="idle-icon">📅</view>
+      <view class="status-label">准备开始工作</view>
+      <view class="status-hint text-hint">点击下方按钮打卡签到</view>
+      <view class="checkin-btn-wrapper">
+        <button class="btn btn-success btn-block checkin-btn" 
+                bindtap="onCheckin" loading="{{isCheckingIn}}" disabled="{{isCheckingIn}}">
+          ✍️ 签 到
+        </button>
+      </view>
+    </block>
+  </view>
+
+  <!-- ===== 历史记录 ===== -->
+  <view class="history-section animate-slide-up">
+    <view class="section-header flex-between">
+      <text class="text-subtitle">📋 打卡记录</text>
+      <text class="text-hint">共 {{historyList.length}} 条</text>
+    </view>
+
+    <block wx:if="{{historyList.length > 0}}">
+      <view class="history-list">
+        <view class="history-item glass-card" wx:for="{{historyList}}" wx:key="id" wx:for-item="record">
+          <view class="history-header flex-between">
+            <view class="flex-center">
+              <text>{{record.status === '进行中' ? '🔵' : '✅'}}</text>
+              <text class="history-date">{{record.date}}</text>
+            </view>
+            <view class="tag {{record.status === '进行中' ? 'tag-warning' : 'tag-success'}}">
+              {{record.status}}
+            </view>
+          </view>
+          <view class="history-body">
+            <view class="history-row">
+              <text class="text-hint">📥 签到</text>
+              <text class="text-body">{{record.startTime}}</text>
+            </view>
+            <view class="history-row">
+              <text class="text-hint">📤 签退</text>
+              <text class="text-body">{{record.endTime || '--:--:--'}}</text>
+            </view>
+            <view class="history-row">
+              <text class="text-hint">⏱️ 时长</text>
+              <text class="text-body highlight">{{record.duration || '-'}}</text>
+            </view>
+            <view class="history-row location-row">
+              <text class="text-hint">📍 地点</text>
+              <text class="text-body text-secondary">{{record.location.address}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="load-more" wx:if="{{hasMore}}">
+        <button class="btn btn-ghost btn-sm" bindtap="loadMore" loading="{{loading}}">⬇️ 加载更多</button>
+      </view>
+      <view class="load-more text-hint" wx:else>— 已加载全部 —</view>
+    </block>
+
+    <block wx:else>
+      <view class="empty-state">
+        <view class="empty-icon">📭</view>
+        <view class="empty-text">暂无打卡记录</view>
+        <view class="text-hint" style="margin-top:8rpx;">快去签到吧 ✨</view>
+      </view>
+    </block>
+  </view>
+
+</view>

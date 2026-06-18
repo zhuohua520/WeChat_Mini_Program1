@@ -1,0 +1,224 @@
+/** app.wxss — 卡通软萌风全局样式 **/
+
+/* ===== 马卡龙四色主题变量 ===== */
+page {
+  /* 打卡页 - 浅蓝奶油 */
+  --theme-checkin-bg: #F0F7FD;
+  --theme-checkin-card: rgba(255,255,255,0.85);
+  --theme-checkin-accent: #7EC8E3;
+  --theme-checkin-accent2: #A8D8EA;
+  --theme-checkin-gradient: linear-gradient(135deg, #C5E8F7 0%, #E8F4FD 100%);
+  
+  /* 工位页 - 蜜桃粉 */
+  --theme-desk-bg: #FFF5F5;
+  --theme-desk-card: rgba(255,255,255,0.85);
+  --theme-desk-accent: #F7A8B8;
+  --theme-desk-accent2: #FFB6C1;
+  --theme-desk-gradient: linear-gradient(135deg, #FFD6E0 0%, #FFF0F3 100%);
+  
+  /* 预约页 - 浅鹅黄 */
+  --theme-reserve-bg: #FFFDEB;
+  --theme-reserve-card: rgba(255,255,255,0.85);
+  --theme-reserve-accent: #FFD54F;
+  --theme-reserve-accent2: #FFE082;
+  --theme-reserve-gradient: linear-gradient(135deg, #FFF3C4 0%, #FFFDE7 100%);
+  
+  /* 我的页 - 奶白浅紫 */
+  --theme-mine-bg: #F8F5FF;
+  --theme-mine-card: rgba(255,255,255,0.85);
+  --theme-mine-accent: #C4B5FD;
+  --theme-mine-accent2: #A78BFA;
+  --theme-mine-gradient: linear-gradient(135deg, #E8E0FF 0%, #F8F5FF 100%);
+
+  /* 全局共通 */
+  --text-primary: #4A4A5A;
+  --text-secondary: #8E8E9A;
+  --text-hint: #B0B0BC;
+  --radius-sm: 16rpx;
+  --radius-md: 28rpx;
+  --radius-lg: 36rpx;
+  --radius-xl: 48rpx;
+  --radius-xxl: 60rpx;
+  --shadow-soft: 0 8rpx 32rpx rgba(0,0,0,0.06);
+  --shadow-card: 0 12rpx 40rpx rgba(0,0,0,0.08);
+  --shadow-btn: 0 8rpx 24rpx rgba(0,0,0,0.12);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #F8F9FC;
+  min-height: 100vh;
+  color: var(--text-primary);
+  font-size: 28rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 毛玻璃卡通卡片 ===== */
+.glass-card {
+  background: rgba(255,255,255,0.9);
+  border-radius: var(--radius-xl);
+  border: 2rpx solid rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* ===== 卡通软糖按钮 ===== */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  padding: 24rpx 48rpx;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 4rpx;
+}
+.btn::after { border: none; }
+.btn:active {
+  transform: scale(0.94);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);
+  box-shadow: 0 8rpx 28rpx rgba(167,139,250,0.35);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #7EC8E3 0%, #A8D8EA 100%);
+  box-shadow: 0 8rpx 28rpx rgba(126,200,227,0.35);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #FFB6C1 0%, #F7A8B8 100%);
+  box-shadow: 0 8rpx 28rpx rgba(247,168,184,0.35);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #FFB6C1 0%, #F08080 100%);
+  box-shadow: 0 8rpx 28rpx rgba(240,128,128,0.3);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.7);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-sm {
+  padding: 16rpx 32rpx;
+  font-size: 24rpx;
+  border-radius: 48rpx;
+}
+
+.btn-block { width: 100%; }
+
+/* ===== 布局 ===== */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-col { display: flex; flex-direction: column; }
+
+.page-container {
+  padding: 24rpx;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ===== 文字层级 ===== */
+.text-title { font-size: 36rpx; font-weight: 700; color: var(--text-primary); }
+.text-subtitle { font-size: 30rpx; font-weight: 600; color: var(--text-primary); }
+.text-body { font-size: 28rpx; color: var(--text-primary); }
+.text-hint { font-size: 24rpx; color: var(--text-hint); }
+.text-secondary { font-size: 26rpx; color: var(--text-secondary); }
+
+/* ===== 状态标签 ===== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 40rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+.tag-success { background: rgba(126,200,227,0.2); color: #5BA4C4; }
+.tag-warning { background: rgba(247,168,184,0.2); color: #E898A8; }
+.tag-danger { background: rgba(240,128,128,0.18); color: #D07070; }
+.tag-primary { background: rgba(196,181,253,0.25); color: #8B7AE8; }
+.tag-ghost { background: rgba(0,0,0,0.05); color: var(--text-secondary); }
+
+/* ===== 空状态 ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+.empty-icon { font-size: 96rpx; margin-bottom: 24rpx; opacity: 0.5; }
+.empty-text { font-size: 28rpx; color: var(--text-hint); }
+
+/* ===== 分割线 ===== */
+.divider {
+  height: 1rpx;
+  background: rgba(0,0,0,0.05);
+  margin: 24rpx 0;
+}
+
+/* ===== 安全区域 ===== */
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ===== 卡通装饰元素 ===== */
+.deco-star {
+  position: absolute;
+  font-size: 40rpx;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.deco-cloud {
+  position: absolute;
+  font-size: 56rpx;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* ===== 动画 ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12rpx); }
+}
+@keyframes breathing {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(126,200,227,0.5); }
+  50% { transform: scale(1.08); box-shadow: 0 0 0 40rpx rgba(126,200,227,0); }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out; }
+.animate-slide-up { animation: slideUp 0.5s ease-out; }
+.animate-bounce { animation: bounce 2s ease-in-out infinite; }

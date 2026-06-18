@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "breathing-light": "/components/breathing-light/breathing-light"
+  },
+  "navigationBarTitleText": "打卡"
+}

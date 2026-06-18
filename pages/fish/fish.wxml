@@ -1,0 +1,93 @@
+<!-- pages/fish/fish.wxml — 摸鱼信息流 -->
+<view class="fish-page">
+
+  <!-- ===== 动态列表 ===== -->
+  <block wx:if="{{posts.length > 0}}">
+    <view class="post-list">
+      <view class="post-card glass-card animate-fade-in" 
+            wx:for="{{posts}}" wx:key="id" wx:for-item="post"
+            bindlongpress="onLongPress" data-id="{{post.id}}">
+        
+        <!-- 头部 -->
+        <view class="post-header flex-between">
+          <view class="post-user flex-center">
+            <image wx:if="{{post.userAvatar}}" class="post-avatar" src="{{post.userAvatar}}" mode="aspectFill" />
+            <view wx:else class="post-avatar-placeholder">{{post.userName[0] || '🐟'}}</view>
+            <view class="post-user-info">
+              <text class="post-name">{{post.userName}}</text>
+              <text class="post-time text-hint">{{post.createTime}}</text>
+            </view>
+          </view>
+          <text class="post-delete-hint text-hint" wx:if="{{post.userId === userInfo.userId}}">长按删除</text>
+        </view>
+
+        <!-- 文字 -->
+        <view class="post-text" wx:if="{{post.text}}">{{post.text}}</view>
+
+        <!-- 图片 -->
+        <view class="post-images" wx:if="{{post.images.length > 0}}">
+          <view class="post-image-grid img-{{post.images.length >= 3 ? 'multi' : post.images.length}}">
+            <image class="post-img" wx:for="{{post.images}}" wx:key="*this" wx:for-item="img"
+                   src="{{img}}" mode="aspectFill"
+                   data-post-id="{{post.id}}"
+                   data-img-index="{{index}}"
+                   bindtap="onPreviewImage" />
+          </view>
+        </view>
+
+        <!-- 互动栏 -->
+        <view class="post-actions flex-between">
+          <view class="action-item {{post.isLiked ? 'liked' : ''}}" 
+                bindtap="onToggleLike" data-id="{{post.id}}">
+            <text>{{post.isLiked ? '❤️' : '🤍'}}</text>
+            <text class="action-count">{{post.likes.length || ''}}</text>
+          </view>
+          <view class="action-item" bindtap="onToggleComments" data-id="{{post.id}}">
+            <text>💬</text>
+            <text class="action-count">{{post.comments.length || ''}}</text>
+          </view>
+        </view>
+
+        <!-- 评论列表 -->
+        <view class="post-comments" wx:if="{{expandedComments[post.id]}}">
+          <view class="comment-item" wx:for="{{post.comments}}" wx:key="id" wx:for-item="cmt">
+            <text class="comment-name">{{cmt.userName}}：</text>
+            <text class="comment-text">{{cmt.text}}</text>
+          </view>
+          <!-- 评论输入 -->
+          <view class="comment-input-row">
+            <input class="comment-input" 
+                   placeholder="说点什么…" 
+                   value="{{commentTexts[post.id] || ''}}"
+                   data-id="{{post.id}}"
+                   bindinput="onCommentInput"
+                   confirm-type="send"
+                   bindconfirm="onSubmitComment" />
+            <text class="comment-send" bindtap="onSubmitComment" data-id="{{post.id}}">发送</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <text class="text-hint" bindtap="loadMore">⬇️ 加载更多</text>
+    </view>
+    <view class="load-more text-hint" wx:else>— 没有更多了 🐟 —</view>
+  </block>
+
+  <!-- 空状态 -->
+  <block wx:else>
+    <view class="empty-state">
+      <view class="empty-icon">🐟</view>
+      <view class="empty-text">还没有动态</view>
+      <view class="text-hint" style="margin-top:8rpx;">快来发第一条摸鱼吧~</view>
+    </view>
+  </block>
+
+  <!-- FAB 发布按钮 -->
+  <view class="fab-btn" bindtap="onPublish">
+    <text class="fab-icon">✏️</text>
+  </view>
+
+</view>

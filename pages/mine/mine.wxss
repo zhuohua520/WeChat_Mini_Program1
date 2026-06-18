@@ -1,0 +1,101 @@
+/* pages/mine/mine.wxss — 奶白浅紫个人中心 */
+page { background: var(--theme-mine-bg); }
+
+.profile-card {
+  padding: 52rpx 32rpx 32rpx; text-align: center;
+  margin-bottom: 24rpx; position: relative; overflow: hidden;
+  background: var(--theme-mine-card);
+  border-radius: var(--radius-xxl);
+}
+.profile-card::before {
+  content: ''; position: absolute; top: -60rpx; left: -60rpx;
+  width: 200rpx; height: 200rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,181,253,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.profile-card::after {
+  content: ''; position: absolute; bottom: -40rpx; right: -40rpx;
+  width: 160rpx; height: 160rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.avatar-wrapper {
+  position: relative; width: 130rpx; height: 130rpx;
+  margin: 0 auto 20rpx;
+}
+.avatar, .avatar-img {
+  width: 130rpx; height: 130rpx; border-radius: 50%;
+  box-shadow: 0 8rpx 30rpx rgba(167,139,250,0.3);
+}
+.avatar {
+  background: linear-gradient(135deg, #C4B5FD, #A78BFA);
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-img { object-fit: cover; }
+.avatar-text { font-size: 52rpx; font-weight: 800; color: #FFF; }
+.avatar-camera {
+  position: absolute; bottom: 0; right: -6rpx;
+  width: 44rpx; height: 44rpx; border-radius: 50%;
+  background: #FFF; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24rpx;
+}
+
+/* 装饰星星 */
+.deco-star-tl { position: absolute; top: 20rpx; left: 24rpx; font-size: 40rpx; opacity: 0.3; }
+.deco-star-tr { position: absolute; top: 28rpx; right: 20rpx; font-size: 32rpx; opacity: 0.25; }
+
+.profile-name-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10rpx;
+}
+.profile-name { margin-bottom: 6rpx; }
+.edit-icon { font-size: 28rpx; color: var(--text-hint); margin-top: -6rpx; }
+.profile-id { font-size: 22rpx; }
+
+/* 统计 */
+.stats-row { display: flex; gap: 16rpx; margin-bottom: 24rpx; }
+.stat-card {
+  flex: 1; padding: 32rpx 20rpx; text-align: center;
+  border-radius: var(--radius-xl);
+  background: var(--theme-mine-card);
+  transition: transform 0.2s;
+}
+.stat-card:active { transform: scale(0.95); }
+.stat-num { font-size: 44rpx; font-weight: 800; color: #A78BFA; }
+.stat-label { font-size: 24rpx; margin-top: 6rpx; }
+
+/* 菜单 */
+.menu-section { display: flex; flex-direction: column; gap: 16rpx; }
+.menu-group { overflow: hidden; border-radius: var(--radius-xl); background: var(--theme-mine-card); }
+.menu-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 34rpx 28rpx; transition: background 0.2s;
+}
+.menu-item:active { background: rgba(196,181,253,0.1); }
+.menu-left { display: flex; align-items: center; gap: 16rpx; }
+.menu-icon { font-size: 40rpx; }
+.menu-text { font-size: 28rpx; color: var(--text-primary); }
+.menu-arrow { font-size: 36rpx; font-weight: 300; }
+.menu-divider { height: 1rpx; background: rgba(196,181,253,0.15); margin: 0 28rpx; }
+.version-info { text-align: center; padding: 48rpx 0; font-size: 24rpx; }
+
+/* 姓名编辑弹窗 */
+.name-edit-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35); z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+}
+.name-edit-box {
+  width: 580rpx; padding: 44rpx 36rpx; border-radius: var(--radius-xxl);
+  background: #FFF;
+}
+.name-edit-title { margin-bottom: 24rpx; text-align: center; }
+.name-input {
+  width: 100%; height: 84rpx;
+  border: 3rpx solid rgba(196,181,253,0.5);
+  border-radius: var(--radius-lg); padding: 0 24rpx;
+  font-size: 28rpx; box-sizing: border-box; margin-bottom: 24rpx;
+}
+.name-edit-btns { display: flex; gap: 16rpx; justify-content: flex-end; }

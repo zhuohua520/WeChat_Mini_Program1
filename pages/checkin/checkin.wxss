@@ -1,0 +1,104 @@
+/* pages/checkin/checkin.wxss — 浅蓝奶油打卡页 */
+page { background: var(--theme-checkin-bg); }
+
+/* ===== 状态卡片 ===== */
+.status-card {
+  padding: 56rpx 32rpx 40rpx;
+  margin-bottom: 32rpx;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--theme-checkin-card);
+  border-radius: var(--radius-xxl);
+}
+.status-card::before {
+  content: '';
+  position: absolute; top: -80rpx; right: -80rpx;
+  width: 240rpx; height: 240rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,216,234,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.status-card::after {
+  content: '';
+  position: absolute; bottom: -60rpx; left: -60rpx;
+  width: 200rpx; height: 200rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(126,200,227,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.status-label {
+  font-size: 32rpx; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 20rpx;
+}
+.status-time {
+  font-size: 40rpx; font-weight: 800;
+  color: #5BA4C4; margin: 16rpx 0;
+  font-variant-numeric: tabular-nums;
+}
+.status-location { margin-bottom: 32rpx; font-size: 26rpx; }
+.location-icon { margin-right: 6rpx; }
+.status-hint { margin: 12rpx 0 32rpx; }
+
+/* 空闲图标 */
+.idle-icon {
+  font-size: 88rpx; margin-bottom: 12rpx;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+/* 签到按钮 */
+.checkin-btn-wrapper { padding: 0 20rpx; }
+.checkin-btn {
+  height: 100rpx; border-radius: 60rpx;
+  font-size: 36rpx; font-weight: 800; letter-spacing: 8rpx;
+  background: linear-gradient(135deg, #7EC8E3 0%, #A8D8EA 100%);
+  box-shadow: 0 12rpx 36rpx rgba(126,200,227,0.4);
+}
+
+/* 签退按钮 */
+.checkout-btn-wrapper { padding: 0 20rpx; }
+.checkout-btn {
+  height: 100rpx; border-radius: 60rpx;
+  font-size: 36rpx; font-weight: 800; letter-spacing: 8rpx;
+  background: linear-gradient(135deg, #FFB6C1 0%, #F7A8B8 100%);
+  box-shadow: 0 12rpx 36rpx rgba(247,168,184,0.4);
+}
+
+/* ===== 装饰元素 ===== */
+.deco-stamp {
+  position: absolute; top: 24rpx; right: 24rpx;
+  font-size: 50rpx; opacity: 0.3; pointer-events: none;
+  transform: rotate(15deg);
+}
+
+/* ===== 历史记录 ===== */
+.history-section { margin-top: 8rpx; }
+.section-header {
+  margin-bottom: 20rpx; padding: 0 8rpx;
+}
+.history-list { display: flex; flex-direction: column; gap: 16rpx; }
+.history-item {
+  padding: 28rpx; border-radius: var(--radius-xl);
+  transition: transform 0.2s;
+  background: var(--theme-checkin-card);
+}
+.history-item:active { transform: scale(0.98); }
+.history-header {
+  margin-bottom: 20rpx; padding-bottom: 16rpx;
+  border-bottom: 2rpx dashed rgba(168,216,234,0.3);
+}
+.history-date { font-size: 30rpx; font-weight: 700; margin-left: 12rpx; }
+.history-body { display: flex; flex-direction: column; gap: 12rpx; }
+.history-row { display: flex; justify-content: space-between; align-items: center; }
+.location-row { align-items: flex-start; }
+.highlight { color: #5BA4C4; font-weight: 700; }
+.load-more { text-align: center; padding: 32rpx 0; }
+
+/* 状态呼吸灯圆点 */
+.status-circle {
+  width: 20rpx; height: 20rpx; border-radius: 50%;
+  display: inline-block; margin-right: 8rpx;
+}
+.status-circle.active { background: #7EC8E3; animation: pulse 1.5s ease-in-out infinite; }
+.status-circle.done { background: #A8D8EA; }

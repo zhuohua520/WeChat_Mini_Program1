@@ -1,0 +1,99 @@
+<!-- pages/mine/mine.wxml — 我的页面 -->
+<view class="page-container">
+
+  <!-- ===== 用户头像区域 ===== -->
+  <view class="profile-card glass-card animate-fade-in">
+    <!-- 星星装饰 -->
+    <text class="deco-star-tl">⭐</text>
+    <text class="deco-star-tr">✨</text>
+    <!-- 姓名编辑弹窗 -->
+    <view wx:if="{{isEditingName}}" class="name-edit-overlay" catchtap="noop">
+      <view class="name-edit-box glass-card" catchtap="noop">
+        <view class="name-edit-title text-subtitle">修改姓名</view>
+        <input class="name-input" 
+               value="{{editNameValue}}" 
+               placeholder="请输入姓名"
+               maxlength="20"
+               focus="{{true}}"
+               bindinput="onNameInput"
+               bindconfirm="onConfirmName"/>
+        <view class="name-edit-btns">
+          <button class="btn btn-ghost btn-sm" bindtap="onCancelEditName">取消</button>
+          <button class="btn btn-primary btn-sm" bindtap="onConfirmName">确认</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="avatar-wrapper" bindtap="onChangeAvatar">
+      <image wx:if="{{userInfo.avatarUrl}}" class="avatar-img" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="avatar">
+        <text class="avatar-text">{{userInfo.nickName[0] || '用'}}</text>
+      </view>
+      <view class="avatar-camera">📷</view>
+    </view>
+    
+    <view class="profile-info">
+      <view class="profile-name-row" bindtap="onEditName">
+        <text class="profile-name text-title">{{userInfo.nickName}}</text>
+        <text class="edit-icon">✎</text>
+      </view>
+      <view class="profile-id text-hint">ID: {{userInfo.userId}}</view>
+    </view>
+  </view>
+
+  <!-- ===== 数据统计 ===== -->
+  <view class="stats-row animate-fade-in">
+    <view class="stat-card glass-card" bindtap="onViewStats">
+      <view class="stat-num">{{checkinCount}}</view>
+      <view class="stat-label text-hint">打卡次数</view>
+    </view>
+    <view class="stat-card glass-card" bindtap="onViewReservations">
+      <view class="stat-num">{{reservationCount}}</view>
+      <view class="stat-label text-hint">预约记录</view>
+    </view>
+  </view>
+
+  <!-- ===== 功能菜单 ===== -->
+  <view class="menu-section animate-slide-up">
+    <view class="menu-group glass-card">
+      <view class="menu-item" bindtap="onViewStats">
+        <view class="menu-left">
+          <text class="menu-icon">📝</text>
+          <text class="menu-text">打卡记录</text>
+        </view>
+        <text class="menu-arrow text-hint">›</text>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="onViewReservations">
+        <view class="menu-left">
+          <text class="menu-icon">📅</text>
+          <text class="menu-text">我的预约</text>
+        </view>
+        <text class="menu-arrow text-hint">›</text>
+      </view>
+    </view>
+
+    <view class="menu-group glass-card">
+      <view class="menu-item" bindtap="onAbout">
+        <view class="menu-left">
+          <text class="menu-icon">💡</text>
+          <text class="menu-text">关于应用</text>
+        </view>
+        <text class="menu-arrow text-hint">›</text>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="onClearData">
+        <view class="menu-left">
+          <text class="menu-icon">🗑️</text>
+          <text class="menu-text" style="color: #F08080;">清除本地数据</text>
+        </view>
+        <text class="menu-arrow text-hint">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="version-info text-hint">
+    <text>工作室助手 v1.1 · 本地存储版</text>
+  </view>
+
+</view>

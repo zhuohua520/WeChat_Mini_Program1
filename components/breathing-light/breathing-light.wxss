@@ -1,0 +1,55 @@
+/* components/breathing-light/breathing-light.wxss — 卡通呼吸灯 */
+
+.breathing-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.breath-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 5rpx solid;
+  opacity: 0;
+  width: 100%; height: 100%;
+  box-sizing: border-box;
+}
+
+.breathing {
+  animation: ringBreath 2s ease-in-out infinite;
+}
+.breathing-delayed {
+  animation: ringBreath 2s ease-in-out 0.6s infinite;
+}
+
+@keyframes ringBreath {
+  0% { transform: scale(0.45); opacity: 0.9; }
+  50% { transform: scale(1.0); opacity: 0.2; }
+  100% { transform: scale(0.45); opacity: 0.9; }
+}
+
+.breath-core {
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: corePulse 2s ease-in-out infinite;
+  position: relative; z-index: 2;
+}
+
+@keyframes corePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.core-inner {
+  width: 50%; height: 50%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.55);
+  animation: innerGlow 2s ease-in-out infinite;
+}
+
+@keyframes innerGlow {
+  0%, 100% { opacity: 0.5; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1); }
+}

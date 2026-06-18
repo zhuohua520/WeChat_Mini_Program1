@@ -1,0 +1,69 @@
+/* pages/desk-reserve/desk-reserve.wxss — 浅鹅黄预约页 */
+page { background: var(--theme-reserve-bg); }
+
+.desk-info-card {
+  padding: 48rpx 32rpx; text-align: center; margin-bottom: 24rpx;
+  background: var(--theme-reserve-card);
+  border-radius: var(--radius-xxl);
+  position: relative; overflow: hidden;
+}
+.desk-info-card::before {
+  content: ''; position: absolute; top: -50rpx; right: -50rpx;
+  width: 160rpx; height: 160rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,213,79,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.desk-icon { font-size: 72rpx; margin-bottom: 12rpx; }
+.desk-title { margin-bottom: 8rpx; }
+.desk-hint { margin-top: 4rpx; }
+
+.section {
+  padding: 28rpx; margin-bottom: 20rpx;
+  background: var(--theme-reserve-card);
+  border-radius: var(--radius-xl);
+}
+.section-title { margin-bottom: 20rpx; }
+
+.picker-display {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22rpx 28rpx; background: rgba(255,213,79,0.1);
+  border-radius: var(--radius-lg);
+  border: 2rpx solid rgba(255,213,79,0.2);
+}
+.picker-value { font-size: 28rpx; color: var(--text-primary); font-weight: 600; }
+.picker-arrow { font-size: 38rpx; color: var(--text-hint); }
+
+.time-row { display: flex; align-items: center; gap: 8rpx; }
+.time-picker-col { flex: 1; }
+.time-label { font-size: 24rpx; margin-bottom: 12rpx; }
+.time-picker { padding: 18rpx 22rpx; }
+.time-separator { display: flex; flex-direction: column; align-items: center; padding: 0 4rpx; margin-top: 28rpx; }
+.time-dash { width: 18rpx; height: 3rpx; background: var(--text-hint); border-radius: 2rpx; }
+.time-to { font-size: 20rpx; padding: 6rpx 0; }
+
+.duration-hint {
+  text-align: center; margin-top: 20rpx; padding: 14rpx;
+  background: rgba(255,213,79,0.08);
+  border-radius: var(--radius-lg);
+}
+
+/* 已占时段 */
+.booked-slot-tag {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16rpx 22rpx; background: rgba(255,182,193,0.12);
+  border-radius: var(--radius-md); margin-bottom: 8rpx;
+  border-left: 5rpx solid #F7A8B8;
+}
+.booked-time { font-size: 26rpx; font-weight: 700; color: #D48090; }
+.booked-user { font-size: 24rpx; }
+
+/* 提交按钮 */
+.submit-section { margin-top: 40rpx; padding: 0 20rpx; }
+.submit-btn {
+  height: 100rpx; border-radius: 60rpx;
+  font-size: 34rpx; font-weight: 800; letter-spacing: 6rpx;
+  background: linear-gradient(135deg, #FFD54F 0%, #FFE082 100%);
+  box-shadow: 0 12rpx 36rpx rgba(255,213,79,0.4);
+  color: #6B5A20;
+}

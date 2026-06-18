@@ -1,0 +1,78 @@
+<!-- pages/desk-reserve/desk-reserve.wxml — 工位预约页面 -->
+<view class="page-container">
+
+  <!-- ===== 工位信息 ===== -->
+  <view class="desk-info-card glass-card animate-fade-in">
+    <view class="desk-icon">🪑</view>
+    <view class="desk-title text-title">{{deskName}}</view>
+    <view class="desk-hint text-hint">📝 请选择预约日期和时间</view>
+  </view>
+
+  <!-- ===== 日期选择 ===== -->
+  <view class="section glass-card animate-slide-up">
+    <view class="section-title text-subtitle">📅 预约日期</view>
+    <picker mode="selector" range="{{dateOptions}}" range-key="label" value="{{dateIndex}}" bindchange="onDateChange">
+      <view class="picker-display">
+        <text class="picker-value">{{dateOptions[dateIndex].label}}</text>
+        <text class="picker-arrow">›</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- ===== 已占时段提示 ===== -->
+  <view class="section glass-card animate-slide-up" wx:if="{{bookedSlots.length > 0}}">
+    <view class="section-title text-subtitle">📌 该日已占时段</view>
+    <view class="booked-slot-tag" wx:for="{{bookedSlots}}" wx:key="*this">
+      <text class="booked-time">{{item.startTime}} - {{item.endTime}}</text>
+      <text class="booked-user text-hint">{{item.userName}}</text>
+    </view>
+  </view>
+
+  <!-- ===== 时间选择 ===== -->
+  <view class="section glass-card animate-slide-up">
+    <view class="section-title text-subtitle">⏰ 预约时段</view>
+    
+    <view class="time-row">
+      <view class="time-picker-col">
+        <view class="time-label text-hint">开始时间</view>
+        <picker mode="selector" range="{{timeSlots}}" range-key="label" value="{{startTimeIndex}}" bindchange="onStartTimeChange">
+          <view class="picker-display time-picker">
+            <text class="picker-value">{{timeSlots[startTimeIndex].label}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+      
+      <view class="time-separator">
+        <view class="time-dash"></view>
+        <text class="time-to text-hint">至</text>
+        <view class="time-dash"></view>
+      </view>
+      
+      <view class="time-picker-col">
+        <view class="time-label text-hint">结束时间</view>
+        <picker mode="selector" range="{{timeSlots}}" range-key="label" value="{{endTimeIndex}}" bindchange="onEndTimeChange">
+          <view class="picker-display time-picker">
+            <text class="picker-value">{{timeSlots[endTimeIndex].label}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="duration-hint text-hint">
+      预选时长：{{endTimeIndex - startTimeIndex > 0 ? (endTimeIndex - startTimeIndex) * 0.5 + ' 小时' : '请选择'}}
+    </view>
+  </view>
+
+  <!-- ===== 提交按钮 ===== -->
+  <view class="submit-section">
+    <button class="btn btn-primary btn-block submit-btn" 
+            bindtap="onSubmit" 
+            loading="{{submitting}}"
+            disabled="{{submitting}}">
+      确认预约
+    </button>
+  </view>
+
+</view>

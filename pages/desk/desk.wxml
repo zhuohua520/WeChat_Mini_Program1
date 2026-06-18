@@ -1,0 +1,111 @@
+<!-- pages/desk/desk.wxml — 工位看板 -->
+<view class="page-container">
+
+  <view class="stats-row animate-fade-in">
+    <view class="stat-item glass-card">
+      <view class="stat-value" style="color: #7EC8A0;">{{stats.free}}</view>
+      <view class="stat-label text-hint">🟢 空闲</view>
+    </view>
+    <view class="stat-item glass-card">
+      <view class="stat-value" style="color: #F7A8B8;">{{stats.reserved}}</view>
+      <view class="stat-label text-hint">🟠 预约中</view>
+    </view>
+    <view class="stat-item glass-card">
+      <view class="stat-value" style="color: #F08080;">{{stats.inuse}}</view>
+      <view class="stat-label text-hint">🔴 使用中</view>
+    </view>
+    <view class="stat-item glass-card">
+      <view class="stat-value" style="color: #A78BFA;">{{stats.total}}</view>
+      <view class="stat-label text-hint">📊 总计</view>
+    </view>
+  </view>
+
+  <view class="desk-grid animate-slide-up">
+    <view class="section-header">
+      <text class="text-subtitle">🪑 全部工位</text>
+      <text class="text-hint">👆 点击查看详情</text>
+    </view>
+
+    <block wx:if="{{deskList.length > 0}}">
+      <view class="desk-cards">
+        <view class="desk-card glass-card {{deskStatuses[item.id] === '空闲' ? 'desk-free' : deskStatuses[item.id] === '预约中' ? 'desk-reserved' : 'desk-inuse'}}"
+              wx:for="{{deskList}}" wx:key="id" wx:for-item="item"
+              data-id="{{item.id}}" data-name="{{item.name}}" bindtap="onDeskTap">
+          <view class="desk-status-bar {{deskStatuses[item.id] === '空闲' ? 'bar-free' : deskStatuses[item.id] === '预约中' ? 'bar-reserved' : 'bar-inuse'}}"></view>
+          <view class="desk-icon-deco">
+            {{deskStatuses[item.id] === '空闲' ? '🟢' : deskStatuses[item.id] === '预约中' ? '🟠' : '🔴'}} 🪑
+          </view>
+          <view class="desk-info">
+            <view class="desk-area text-hint">🏫 {{item.area}}</view>
+            <view class="desk-number">{{item.number}}号</view>
+            <view class="desk-name text-subtitle">{{item.name}}</view>
+          </view>
+          <view class="desk-status-tag">
+            <view class="tag {{deskStatuses[item.id] === '空闲' ? 'tag-success' : deskStatuses[item.id] === '预约中' ? 'tag-warning' : 'tag-danger'}}">
+              {{deskStatuses[item.id] || '空闲'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="empty-state">
+        <view class="empty-icon">🪑</view>
+        <view class="empty-text">暂无工位数据</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- ===== 详情弹窗 ===== -->
+  <view class="detail-overlay {{showDetailModal ? 'overlay-show' : ''}}" bindtap="onCloseDetail">
+    <view class="detail-modal glass-card" catchtap="noop" wx:if="{{currentDesk}}">
+      <view class="detail-modal-header flex-between">
+        <view>
+          <text class="text-subtitle">🪑 {{currentDesk.name}}</text>
+          <text class="text-hint" style="margin-left:12rpx;">🏫 {{currentDesk.area}}</text>
+        </view>
+        <view class="close-btn" bindtap="onCloseDetail">✕</view>
+      </view>
+
+      <view class="detail-section">
+        <view class="detail-section-title text-subtitle">📅 今日已占时段</view>
+        <block wx:if="{{currentBookedSlots.length > 0}}">
+          <view class="booked-slot-item" wx:for="{{currentBookedSlots}}" wx:key="*this">
+            <text class="slot-time">⏰ {{item.startTime}} - {{item.endTime}}</text>
+            <text class="text-hint">👤 {{item.userName}}</text>
+            <view class="tag {{item.status === '进行中' ? 'tag-warning' : 'tag-primary'}}">{{item.status}}</view>
+          </view>
+        </block>
+        <block wx:else><text class="text-hint">今日暂无预约 ✨</text></block>
+      </view>
+
+      <view class="detail-section">
+        <view class="detail-section-title text-subtitle">📋 全部预约记录（{{currentDeskReservations.length}}）</view>
+        <block wx:if="{{currentDeskReservations.length > 0}}">
+          <view class="history-item" wx:for="{{currentDeskReservations}}" wx:key="id">
+            <view class="flex-between">
+              <view>
+                <text class="text-body">📅 {{item.date}}</text>
+                <text class="text-body" style="margin-left:12rpx;">⏰ {{item.startTime}}-{{item.endTime}}</text>
+              </view>
+              <view class="tag {{item.status === '进行中' ? 'tag-warning' : item.status === '待开始' ? 'tag-primary' : item.status === '已结束' ? 'tag-ghost' : 'tag-danger'}}">
+                {{item.status}}
+              </view>
+            </view>
+            <view class="flex-between" style="margin-top:6rpx;">
+              <text class="text-hint" style="font-size:22rpx;">👤 {{item.userName || '未知'}}</text>
+              <text class="text-hint" style="font-size:22rpx;">🕐 {{item.createTime}}</text>
+            </view>
+          </view>
+        </block>
+        <block wx:else><text class="text-hint">暂无预约记录</text></block>
+      </view>
+
+      <view class="detail-actions">
+        <button class="btn btn-primary btn-block" bindtap="onReserveFromDetail">📝 预约该工位</button>
+      </view>
+    </view>
+  </view>
+
+</view>

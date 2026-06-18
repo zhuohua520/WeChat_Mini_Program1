@@ -1,0 +1,92 @@
+/* pages/reservation/reservation.wxss — 浅鹅黄预约页 */
+page { background: var(--theme-reserve-bg); }
+
+.slots-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22rpx 28rpx; margin-bottom: 16rpx;
+  border-radius: var(--radius-xl);
+  background: var(--theme-reserve-card);
+  transition: transform 0.2s;
+}
+.slots-bar:active { transform: scale(0.98); }
+.slots-bar-left { display: flex; align-items: center; gap: 12rpx; }
+.slots-dot {
+  width: 16rpx; height: 16rpx; border-radius: 50%;
+  background: #FFD54F; animation: pulse 1.5s ease-in-out infinite;
+}
+.slots-text { font-size: 28rpx; font-weight: 700; }
+.slots-bar-right { display: flex; align-items: center; gap: 6rpx; }
+.slots-count { font-size: 24rpx; color: #D4A020; font-weight: 600; }
+.slots-arrow { font-size: 32rpx; color: var(--text-hint); }
+
+/* Tab */
+.tab-bar {
+  display: flex; padding: 10rpx; margin-bottom: 24rpx;
+  border-radius: var(--radius-xl);
+  background: var(--theme-reserve-card);
+}
+.tab-item {
+  flex: 1; text-align: center; padding: 22rpx 0;
+  font-size: 28rpx; color: var(--text-secondary);
+  position: relative; transition: all 0.3s;
+  border-radius: var(--radius-lg);
+}
+.tab-active {
+  color: #D4A020; font-weight: 700;
+  background: rgba(255,213,79,0.15);
+}
+.tab-indicator {
+  position: absolute; bottom: 6rpx; left: 50%;
+  transform: translateX(-50%);
+  width: 36rpx; height: 5rpx; border-radius: 3rpx;
+  background: linear-gradient(90deg, #FFD54F, #FFE082);
+}
+
+/* 列表 */
+.reservation-list { display: flex; flex-direction: column; gap: 16rpx; }
+.reservation-card {
+  overflow: hidden; border-radius: var(--radius-xl);
+  background: var(--theme-reserve-card);
+  transition: transform 0.2s;
+}
+.reservation-card:active { transform: scale(0.98); }
+.card-status-bar { height: 6rpx; width: 100%; }
+.bar-free { background: linear-gradient(90deg, #C5E8C5, #A8D8A8); }
+.bar-reserved { background: linear-gradient(90deg, #FFE082, #FFD54F); }
+.bar-inuse { background: linear-gradient(90deg, #FFB6C1, #F7A8B8); }
+.card-body { padding: 24rpx 28rpx; }
+.card-header {
+  margin-bottom: 20rpx; padding-bottom: 16rpx;
+  border-bottom: 2rpx dashed rgba(255,213,79,0.25);
+}
+.card-desk { font-size: 32rpx; font-weight: 800; color: var(--text-primary); }
+.card-detail { display: flex; flex-direction: column; gap: 14rpx; }
+.detail-row { display: flex; justify-content: space-between; align-items: center; }
+.card-actions {
+  margin-top: 20rpx; padding-top: 16rpx;
+  border-top: 2rpx dashed rgba(255,213,79,0.2);
+  display: flex; justify-content: flex-end;
+}
+
+/* 弹窗 */
+.slots-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35); z-index: 999;
+  display: flex; align-items: flex-end;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.overlay-show { opacity: 1; pointer-events: auto; }
+.slots-modal {
+  width: 100%; max-height: 70vh;
+  border-radius: var(--radius-xxl) var(--radius-xxl) 0 0;
+  padding: 32rpx 28rpx; padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  overflow-y: auto; background: #FFFEF8;
+}
+.slots-modal-header { margin-bottom: 24rpx; padding-bottom: 16rpx; border-bottom: 2rpx dashed rgba(255,213,79,0.3); }
+.slots-list { display: flex; flex-direction: column; gap: 12rpx; }
+.slot-item {
+  padding: 20rpx 24rpx; background: rgba(255,213,79,0.08);
+  border-radius: var(--radius-md); border-left: 5rpx solid #FFD54F;
+}
+.slot-header { margin-bottom: 8rpx; }
+.slot-desk { font-size: 28rpx; font-weight: 700; }

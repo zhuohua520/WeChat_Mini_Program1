@@ -1,0 +1,10 @@
+<!-- components/breathing-light/breathing-light.wxml -->
+<view class="breathing-container" style="width: {{size}}rpx; height: {{size}}rpx;">
+  <!-- 外圈扩散波 -->
+  <view class="breath-ring ring-1 {{animated ? 'breathing' : ''}}" style="border-color: {{color}};"></view>
+  <view class="breath-ring ring-2 {{animated ? 'breathing-delayed' : ''}}" style="border-color: {{color}};"></view>
+  <!-- 中心圆 -->
+  <view class="breath-core" style="background: {{color}}; width: {{size * 0.45}}rpx; height: {{size * 0.45}}rpx;">
+    <view class="core-inner"></view>
+  </view>
+</view>
