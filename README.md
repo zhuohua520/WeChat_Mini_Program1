@@ -306,4 +306,4 @@ miniprogram/
 
 ---
 
-> 完整源码可前往Github获取[https://github.com/zhuohua520/WeChat_Mini_Program1]。欢迎 Star ⭐ 和交流讨论！
+> 欢迎 Star ⭐ 和交流讨论！
